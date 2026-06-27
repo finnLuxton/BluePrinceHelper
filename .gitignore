@@ -354,3 +354,4 @@ MigrationBackup/
 *.sln.iml
 **/.DS_Store
 **/.meteor
+.idea/.idea.BluePrinceHelper/.idea/workspace.xml
