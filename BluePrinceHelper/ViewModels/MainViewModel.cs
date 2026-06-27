@@ -8,6 +8,6 @@ public partial class MainViewModel : ViewModelBase
 
     public MainViewModel()
     {
-        WelcomeMessage = "Welcome to your MVVM App!";
+        WelcomeMessage = "Blue Prince Solver!";
     }
 }
