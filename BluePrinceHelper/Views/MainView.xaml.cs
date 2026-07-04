@@ -20,7 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
+using System.Runtime.InteropServices.JavaScript;
+using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Input;
+using BluePrinceHelper.ViewModels;
 
 namespace BluePrinceHelper.Views;
 
@@ -30,4 +35,19 @@ public partial class MainView : Window
     {
         InitializeComponent();
     }
+
+    public void OnClickGetCore(object sender, RoutedEventArgs e)
+    {
+        // 
+        var mainViewModel = new MainViewModel();
+
+        mainViewModel.GetCore(Convert.ToInt32(InputCoreValue.Text));
+    }
+
+    public void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+    {
+        Regex regex = new Regex("[^0-9]+");
+        e.Handled = regex.IsMatch(e.Text);
+    }
+    
 }

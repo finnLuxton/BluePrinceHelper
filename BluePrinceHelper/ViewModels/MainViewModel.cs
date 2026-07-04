@@ -10,4 +10,10 @@ public partial class MainViewModel : ViewModelBase
     {
         WelcomeMessage = "Blue Prince Solver!";
     }
+
+    public int GetCore(int input)
+    {
+        return input*2;
+    }
+    
 }

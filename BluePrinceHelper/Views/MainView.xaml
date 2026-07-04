@@ -3,12 +3,33 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        Title="MainView"
-        Width="800"
-        Height="450"
+        Title="Blue Prince Helper"
+        Width="330"
+        Height="230"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-        <TextBlock Text="{Binding WelcomeMessage}" />
+    <Grid>
+        <Grid HorizontalAlignment="Left" 
+              VerticalAlignment="Center">
+            <TextBlock Text="HEEYYYY"/>
+        </Grid>
+        <Grid HorizontalAlignment="Center" 
+              VerticalAlignment="Center">
+            <TextBlock Text="{Binding WelcomeMessage}" />
+            <Button Content="Get Numeric Core"
+                    Click="OnClickGetCore"
+                    ClickMode="Press"/>
+        </Grid>
+        <Grid HorizontalAlignment="Center" 
+              VerticalAlignment="Top">
+            <TextBox Name="InputCoreValue"
+                     PreviewTextInput="NumberValidationTextBox"/>
+        </Grid>    
+        <Grid HorizontalAlignment="Center" 
+              VerticalAlignment="Bottom">
+            <TextBox Name="OutputCoreValue"
+                     PreviewTextInput="NumberValidationTextBox"
+                     IsHitTestVisible="False"/>
+        </Grid>
     </Grid>
 </Window>
