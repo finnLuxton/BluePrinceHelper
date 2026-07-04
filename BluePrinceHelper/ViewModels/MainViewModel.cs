@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BluePrinceHelper.ViewModels;
 
@@ -11,9 +12,25 @@ public partial class MainViewModel : ViewModelBase
         WelcomeMessage = "Blue Prince Solver!";
     }
 
-    public int GetCore(int input)
+    public int GetCore(string input)
     {
-        return input*2;
+        if (input.Length < 4)
+        {
+            return 0; // Todo Actually fail here
+        }
+
+        var bucket1 = Convert.ToInt32(input[0]);
+        var bucket2 = Convert.ToInt32(input[1]);
+        var bucket3 = Convert.ToInt32(input[2]);
+        var bucket4 = Convert.ToInt32(input[3]);
+        
+        // If longer length than 5, do some separating shenanigans. Probably recursion. 
+        // Check operands
+        
+        
+        
+        
+        return bucket1 - bucket2 * bucket3 / bucket4;
     }
     
 }

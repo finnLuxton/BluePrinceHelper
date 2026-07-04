@@ -40,9 +40,9 @@ public partial class MainView : Window
     {
         var mainViewModel = new MainViewModel();
         
-        int.TryParse(InputCoreValue.Text, out int result);
-        
-        mainViewModel.GetCore(result);
+        var result = mainViewModel.GetCore(InputCoreValue.Text);
+
+        OutputCoreValue.Text = result.ToString();
     }
 
     public void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
