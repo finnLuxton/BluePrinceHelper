@@ -38,10 +38,11 @@ public partial class MainView : Window
 
     public void OnClickGetCore(object sender, RoutedEventArgs e)
     {
-        // 
         var mainViewModel = new MainViewModel();
-
-        mainViewModel.GetCore(Convert.ToInt32(InputCoreValue.Text));
+        
+        int.TryParse(InputCoreValue.Text, out int result);
+        
+        mainViewModel.GetCore(result);
     }
 
     public void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
