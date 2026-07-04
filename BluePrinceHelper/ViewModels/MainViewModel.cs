@@ -27,6 +27,9 @@ public partial class MainViewModel : ViewModelBase
         // If longer length than 5, do some separating shenanigans. Probably recursion. 
         // Check operands
         
+        // Have a operand string that we refresh every time? Store that, then deliver to as a return if thats the output?
+        //      Maybe make that a separate function
+        
         
         
         
