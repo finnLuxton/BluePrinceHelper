@@ -9,15 +9,10 @@ public partial class MainViewModel : ViewModelBase
 {
     [ObservableProperty] private string? _welcomeMessage;
 
-    public MainViewModel()
-    {
-    }
-
     public int GetCore(string input)
     {
-
         // todo deal with separation, we need to fix how we assign the input. 
-        var coringList = new List<CoringItem>()
+        var coringList = new List<CoringItem>
         { 
             new (Convert.ToInt32(input[0].ToString()), false),
             new (Convert.ToInt32(input[1].ToString()), false),
@@ -25,22 +20,16 @@ public partial class MainViewModel : ViewModelBase
             new (Convert.ToInt32(input[3].ToString()), false)
         };
 
-        // Iterate through each bucket
-        // todo move this to a function
-
         var coreResult = CalculateCoreFromList(coringList);
-
+        
+        // todo Check for more separations, or if core whole number has digits greater than 4
+        
         var coreIsWholeNumber = int.TryParse(coreResult.ToString(), out int x);
 
-        if (coreIsWholeNumber)
-        {
-            return Convert.ToInt32(coreResult);
-        }
-
-        return 0;
+        return coreIsWholeNumber ? Convert.ToInt32(coreResult) : 0;
     }
 
-    public float CalculateCoreFromList(List<CoringItem> coringItems)
+    private static float CalculateCoreFromList(List<CoringItem> coringItems)
     {
         float result = 0;
         // todo move to new data structure
@@ -49,7 +38,7 @@ public partial class MainViewModel : ViewModelBase
         var isMultFree = true;
         var isDivFree = true;
         
-        foreach(CoringItem item in coringItems)
+        foreach(var item in coringItems)
         {
             if (isAddFree)
             {
