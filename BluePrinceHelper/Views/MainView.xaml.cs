@@ -19,9 +19,6 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-
-using System;
-using System.Runtime.InteropServices.JavaScript;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
@@ -29,23 +26,28 @@ using BluePrinceHelper.ViewModels;
 
 namespace BluePrinceHelper.Views;
 
-public partial class MainView : Window
+public partial class MainView
 {
     public MainView()
     {
         InitializeComponent();
     }
 
-    public void OnClickGetCore(object sender, RoutedEventArgs e)
+    private void OnClickGetCore(object sender, RoutedEventArgs e)
     {
         var mainViewModel = new MainViewModel();
         
+        // Sources of Numeric Cores must be greater than 4 digits
+        if (InputCoreValue.Text.Length < 4)
+        {
+            return; 
+        }
+        
         var result = mainViewModel.GetCore(InputCoreValue.Text);
-
         OutputCoreValue.Text = result.ToString();
     }
 
-    public void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+    private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
     {
         Regex regex = new Regex("[^0-9]+");
         e.Handled = regex.IsMatch(e.Text);

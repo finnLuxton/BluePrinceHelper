@@ -11,11 +11,36 @@ public partial class MainViewModel : ViewModelBase
 
     public MainViewModel()
     {
-        WelcomeMessage = "Blue Prince Solver!";
     }
-    
-    // Maybe look at updating this to a return type for both operands and numeric value?
+
     public int GetCore(string input)
+    {
+
+        // todo deal with separation, we need to fix how we assign the input. 
+        var coringList = new List<CoringItem>()
+        { 
+            new (Convert.ToInt32(input[0].ToString()), false),
+            new (Convert.ToInt32(input[1].ToString()), false),
+            new (Convert.ToInt32(input[2].ToString()), false),
+            new (Convert.ToInt32(input[3].ToString()), false)
+        };
+
+        // Iterate through each bucket
+        // todo move this to a function
+
+        var coreResult = CalculateCoreFromList(coringList);
+
+        var coreIsWholeNumber = int.TryParse(coreResult.ToString(), out int x);
+
+        if (coreIsWholeNumber)
+        {
+            return Convert.ToInt32(coreResult);
+        }
+
+        return 0;
+    }
+
+    public float CalculateCoreFromList(List<CoringItem> coringItems)
     {
         float result = 0;
         // todo move to new data structure
@@ -24,23 +49,7 @@ public partial class MainViewModel : ViewModelBase
         var isMultFree = true;
         var isDivFree = true;
         
-        // todo Actually fail here
-        if (input.Length < 4)
-        {
-            return 0; 
-        }
-
-        var coringList = new List<CoringItem>()
-        { // todo deal with seperation, we need to fix how we assign the input. 
-            new CoringItem(Convert.ToInt32(input[0]), false),
-            new CoringItem(Convert.ToInt32(input[1]), false),
-            new CoringItem(Convert.ToInt32(input[2]), false),
-            new CoringItem(Convert.ToInt32(input[3]), false),
-        };
-
-        // Iterate through each bucket
-        // todo move this to a function
-        foreach(CoringItem item in coringList)
+        foreach(CoringItem item in coringItems)
         {
             if (isAddFree)
             {
@@ -75,16 +84,7 @@ public partial class MainViewModel : ViewModelBase
             }
         }
 
-
-        var coreIsWholeNumber = int.TryParse(result.ToString(), out int x);
-
-        if (coreIsWholeNumber)
-        {
-            return Convert.ToInt32(result);
-        }
-
-        //todo Update with actual failure of return
-        return 0;
+        return result;
     }
     
 }
