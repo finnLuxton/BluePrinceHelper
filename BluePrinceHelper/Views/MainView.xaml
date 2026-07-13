@@ -10,28 +10,22 @@
         mc:Ignorable="d"
         ResizeMode="NoResize">
     <Grid>
-        <Grid HorizontalAlignment="Center" 
-              VerticalAlignment="Center"
-              Margin="25">
-            <TextBlock Text="{Binding WelcomeMessage}" />
-            <Button Content="Get Numeric Core"
-                    Click="OnClickGetCore"
-                    ClickMode="Press"/>
-        </Grid>
-        <Grid HorizontalAlignment="Center" 
-              VerticalAlignment="Top"
+        <Grid HorizontalAlignment="Center"
               Margin="25">
             <TextBox Name="InputCoreValue"
                      PreviewTextInput="NumberValidationTextBox"
-                     MinWidth="200" MinHeight="20" MaxWidth="200" MaxHeight="20"/>
-        </Grid>    
-        <Grid HorizontalAlignment="Center" 
-              VerticalAlignment="Bottom"
-              Margin="25">
+                     MinWidth="200" MinHeight="20" MaxWidth="200" MaxHeight="20"
+                     VerticalAlignment="Top"/>
+            <Button Content="Get Numeric Core"
+                    Click="OnClickGetCore"
+                    ClickMode="Press"
+                    IsDefault="True"
+                    VerticalAlignment="Center"/>
             <TextBox Name="OutputCoreValue"
                      PreviewTextInput="NumberValidationTextBox"
                      IsHitTestVisible="False"
-                     MinWidth="200" MinHeight="20" MaxWidth="200" MaxHeight="20"/>
+                     MinWidth="200" MinHeight="20" MaxWidth="200" MaxHeight="20"
+                     VerticalAlignment="Bottom"/>
         </Grid>
     </Grid>
 </Window>
