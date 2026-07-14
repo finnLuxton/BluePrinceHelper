@@ -32,13 +32,11 @@ public partial class MainViewModel : ViewModelBase
 
     }
 
-    // Could update the function to return a result list?
     private static int CalculateCoreFromList(List<CoringItem> coringItems)
     {
-        float calculation = 0;
         var lowestCoreValue = 0;
 
-        var operandSet = new List<(string, string, string)>
+        var operandSetList = new List<(string, string, string)>
         {
             new ValueTuple<string, string, string>("sub", "mult", "div"),
             new ValueTuple<string, string, string>("sub", "div", "mult"),
@@ -48,26 +46,28 @@ public partial class MainViewModel : ViewModelBase
             new ValueTuple<string, string, string>("div", "mult", "sub")
         };
 
-        foreach (var operandItem in operandSet)
+        foreach (var operandSet in operandSetList)
         {
-            calculation = 0;
-            calculation += coringItems[0].Value;
+            float calculation = coringItems[0].Value;
 
             foreach (var item in coringItems.Skip(1))
             {
-                if (operandItem.Item1 == "sub")
+                foreach (string operand in new[] {operandSet.Item1, operandSet.Item2, operandSet.Item3})
                 {
-                    calculation -= item.Value;
-                }
+                    if (operand == "sub")
+                    {
+                        calculation -= item.Value;
+                    }
 
-                if (operandItem.Item2 == "mult")
-                {
-                    calculation *= item.Value;
-                }
+                    if (operand == "mult")
+                    {
+                        calculation *= item.Value;
+                    }
 
-                if (operandItem.Item3 == "div")
-                {
-                    calculation /= item.Value;
+                    if (operand == "div")
+                    {
+                        calculation /= item.Value;
+                    }
                 }
             }
 
