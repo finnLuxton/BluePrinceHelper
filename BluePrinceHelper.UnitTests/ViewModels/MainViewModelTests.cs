@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using BluePrinceHelper.ViewModels;
 
 namespace BluePrinceHelper.UnitTests.ViewModels;
@@ -7,21 +8,22 @@ namespace BluePrinceHelper.UnitTests.ViewModels;
 
 public class MainViewModelTests
 {
-    public MainViewModel _MainViewModel;
-
-    public MainViewModelTests()
+    private readonly MainViewModel _mainViewModel = new();
+    
+    [Theory]
+    [InlineData("3614", 14)]
+    [InlineData("86455", 18)]
+    [InlineData("45292", 53)]
+    //[InlineData("1000200112", 53)] // todo maybe remove this one? it's a bit of a peculiar example
+    public void WithValidInput_WhenCalculatingCoreValue_GetNumericCoreResult(string validCoringInput, int expectedOutput)
     {
-        _MainViewModel = new MainViewModel();
+        //Arrange, Act
+        var result = _mainViewModel.GetCore(validCoringInput);
+
+        //Assert
+        Assert.Equal(expectedOutput, result);
     }
-    // [Fact] public void WithValidInput_WhenCalculatingCoreValue_GetNumericCoreResult()
-    // {
-    //     //Arrange
-    //     
-    //     //Act
-    //     
-    //     //Assert
-    // }
-    //
+    
     
     [Theory]
     [InlineData("0")]
@@ -31,7 +33,7 @@ public class MainViewModelTests
     public void WithInvalidInput_WhenCalculatingCoreValue_ReturnNoCore(string invalidCoringTargetInput)
     {
         //Arrange, Act
-        var result = _MainViewModel.GetCore(invalidCoringTargetInput);
+        var result = _mainViewModel.GetCore(invalidCoringTargetInput);
 
         //Assert
         Assert.Equal(0, result);

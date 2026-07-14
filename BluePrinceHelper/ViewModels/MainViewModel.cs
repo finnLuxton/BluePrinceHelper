@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using BluePrinceHelper.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -26,58 +27,63 @@ public partial class MainViewModel : ViewModelBase
         var coreResult = CalculateCoreFromList(coringList);
         
         // todo Check for more separations, or if core whole number has digits greater than 4
-        
-        var coreIsWholeNumber = int.TryParse(coreResult.ToString(), out int x);
 
-        return coreIsWholeNumber ? Convert.ToInt32(coreResult) : 0;
-        
+        return coreResult;
+
     }
 
-    // 3614 || 3 * 6 / 1 - 4 = 14
-    private static float CalculateCoreFromList(List<CoringItem> coringItems)
+    // Could update the function to return a result list?
+    private static int CalculateCoreFromList(List<CoringItem> coringItems)
     {
-        float result = 0;
-        
-        var isAddFree = true;
-        var isSubFree = true;
-        var isMultFree = true;
-        var isDivFree = true;
-        
-        foreach(var item in coringItems)
+        float calculation = 0;
+        var lowestCoreValue = 0;
+
+        var operandSet = new List<(string, string, string)>
         {
-            if (isAddFree)
+            new ValueTuple<string, string, string>("sub", "mult", "div"),
+            new ValueTuple<string, string, string>("sub", "div", "mult"),
+            new ValueTuple<string, string, string>("mult", "sub", "div"),
+            new ValueTuple<string, string, string>("mult", "div", "sub"),
+            new ValueTuple<string, string, string>("div", "sub", "mult"),
+            new ValueTuple<string, string, string>("div", "mult", "sub")
+        };
+
+        foreach (var operandItem in operandSet)
+        {
+            calculation = 0;
+            calculation += coringItems[0].Value;
+
+            foreach (var item in coringItems.Skip(1))
             {
-                result += item.Value;
-                item.UsedInCore = true;
-                isAddFree = false;
-                continue;
+                if (operandItem.Item1 == "sub")
+                {
+                    calculation -= item.Value;
+                }
+
+                if (operandItem.Item2 == "mult")
+                {
+                    calculation *= item.Value;
+                }
+
+                if (operandItem.Item3 == "div")
+                {
+                    calculation /= item.Value;
+                }
             }
 
-            if (isSubFree)
+            var calcIsWholeNumber = int.TryParse(calculation.ToString(), out int x);
+            
+            if (calcIsWholeNumber)
             {
-                result -= item.Value;
-                item.UsedInCore = true;
-                isSubFree = false;
-                continue;
+                if (lowestCoreValue == 0 || lowestCoreValue > Convert.ToInt32(calculation))
+                {
+                    lowestCoreValue = Convert.ToInt32(calculation);
+                }
             }
-
-            if (isMultFree)
-            {
-                result *= item.Value;
-                item.UsedInCore = true;
-                isMultFree = false;
-                continue;
-            }
-
-            if (isDivFree)
-            {
-                result /= item.Value;
-                item.UsedInCore = true;
-                isDivFree = false;
-            }
+            
         }
 
-        return result;
+        return lowestCoreValue;
     }
     
 }
