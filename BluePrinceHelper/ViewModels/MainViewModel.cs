@@ -54,14 +54,16 @@ public partial class MainViewModel : ViewModelBase
             {
                 foreach (string operand in new[] {operandSet.Item1, operandSet.Item2, operandSet.Item3})
                 {
-                    if (operand == "sub")
+                    if (operand == "sub") //I've messed up, as it's going to iterate to apply the same coringItem with each operand. 
                     {
                         calculation -= item.Value;
+                        continue;
                     }
 
                     if (operand == "mult")
                     {
                         calculation *= item.Value;
+                        continue;
                     }
 
                     if (operand == "div")
