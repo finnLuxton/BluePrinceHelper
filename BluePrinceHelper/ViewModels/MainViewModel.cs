@@ -7,17 +7,20 @@ namespace BluePrinceHelper.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
-    [ObservableProperty] private string? _welcomeMessage;
-
-    public int GetCore(string input)
+    public int GetCore(string? input)
     {
+        if (input == null || input.Length < 4 )
+        {
+            return 0;
+        }
+        
         // todo deal with separation, we need to fix how we assign the input. 
         var coringList = new List<CoringItem>
         { 
-            new (Convert.ToInt32(input[0].ToString()), false),
-            new (Convert.ToInt32(input[1].ToString()), false),
-            new (Convert.ToInt32(input[2].ToString()), false),
-            new (Convert.ToInt32(input[3].ToString()), false)
+            new(Convert.ToInt32(input[0].ToString())),
+            new(Convert.ToInt32(input[1].ToString())),
+            new(Convert.ToInt32(input[2].ToString())),
+            new(Convert.ToInt32(input[3].ToString()))
         };
 
         var coreResult = CalculateCoreFromList(coringList);
@@ -27,12 +30,14 @@ public partial class MainViewModel : ViewModelBase
         var coreIsWholeNumber = int.TryParse(coreResult.ToString(), out int x);
 
         return coreIsWholeNumber ? Convert.ToInt32(coreResult) : 0;
+        
     }
 
+    // 3614 || 3 * 6 / 1 - 4 = 14
     private static float CalculateCoreFromList(List<CoringItem> coringItems)
     {
         float result = 0;
-        // todo move to new data structure
+        
         var isAddFree = true;
         var isSubFree = true;
         var isMultFree = true;
@@ -69,7 +74,6 @@ public partial class MainViewModel : ViewModelBase
                 result /= item.Value;
                 item.UsedInCore = true;
                 isDivFree = false;
-                continue;
             }
         }
 

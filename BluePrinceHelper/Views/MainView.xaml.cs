@@ -37,7 +37,6 @@ public partial class MainView
     {
         var mainViewModel = new MainViewModel();
         
-        // Sources of Numeric Cores must be greater than 4 digits
         if (InputCoreValue.Text.Length < 4)
         {
             return; 
