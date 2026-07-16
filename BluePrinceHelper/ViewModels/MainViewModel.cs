@@ -44,14 +44,17 @@ public class MainViewModel : ViewModelBase
         
         calculation += coringItems[0].Value;
         
-        for (var i = 1; i > coringItems.Count; i++)
+        foreach (var operandSet in operandSetList)
         {
-            foreach (var operandSet in operandSetList)
+            var subUsed = false;
+            var divUsed = false;
+            var multUsed = false;
+            /*
+            for each set of operands
+            */
+            
+            for (var i = 1; i < coringItems.Count; i++)
             {
-                var subUsed = false;
-                var divUsed = false;
-                var multUsed = false;
-                
                 var operands = new[] { operandSet.Item1, operandSet.Item2, operandSet.Item3 };
 
                 foreach (var operand in operands)
@@ -64,6 +67,7 @@ public class MainViewModel : ViewModelBase
                                 calculation -= coringItems[i].Value;
                                 subUsed = true;
                             }
+
                             break;
                         case "mult":
                             if (!multUsed)
@@ -71,6 +75,7 @@ public class MainViewModel : ViewModelBase
                                 calculation *= coringItems[i].Value;
                                 multUsed = true;
                             }
+
                             break;
                         case "div":
                             if (!divUsed)
@@ -78,6 +83,7 @@ public class MainViewModel : ViewModelBase
                                 calculation /= coringItems[i].Value;
                                 divUsed = true;
                             }
+
                             break;
                     }
                 }
@@ -85,7 +91,7 @@ public class MainViewModel : ViewModelBase
                 var resultIsNotWhole = !int.TryParse(calculation.ToString(), out int x);
 
                 if (resultIsNotWhole) continue;
-                
+
                 if (lowestCoreValue == 0 || lowestCoreValue > Convert.ToInt32(calculation))
                 {
                     lowestCoreValue = Convert.ToInt32(calculation);
