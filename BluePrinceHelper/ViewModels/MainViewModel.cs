@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using BluePrinceHelper.Models;
-using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BluePrinceHelper.ViewModels;
 
-public partial class MainViewModel : ViewModelBase
+public class MainViewModel : ViewModelBase
 {
     public int GetCore(string? input)
     {
@@ -25,17 +23,15 @@ public partial class MainViewModel : ViewModelBase
         };
 
         var coreResult = CalculateCoreFromList(coringList);
-        
-        // todo Check for more separations, or if core whole number has digits greater than 4
 
         return coreResult;
-
     }
 
     private static int CalculateCoreFromList(List<CoringItem> coringItems)
     {
+        float calculation = 0;
         var lowestCoreValue = 0;
-
+        
         var operandSetList = new List<(string, string, string)>
         {
             new ValueTuple<string, string, string>("sub", "mult", "div"),
@@ -45,44 +41,56 @@ public partial class MainViewModel : ViewModelBase
             new ValueTuple<string, string, string>("div", "sub", "mult"),
             new ValueTuple<string, string, string>("div", "mult", "sub")
         };
-
-        foreach (var operandSet in operandSetList)
+        
+        calculation += coringItems[0].Value;
+        
+        for (var i = 1; i > coringItems.Count; i++)
         {
-            float calculation = coringItems[0].Value;
-
-            foreach (var item in coringItems.Skip(1))
+            foreach (var operandSet in operandSetList)
             {
-                foreach (string operand in new[] {operandSet.Item1, operandSet.Item2, operandSet.Item3})
+                var subUsed = false;
+                var divUsed = false;
+                var multUsed = false;
+                
+                var operands = new[] { operandSet.Item1, operandSet.Item2, operandSet.Item3 };
+
+                foreach (var operand in operands)
                 {
-                    if (operand == "sub") //I've messed up, as it's going to iterate to apply the same coringItem with each operand. 
+                    switch (operand)
                     {
-                        calculation -= item.Value;
-                        continue;
-                    }
-
-                    if (operand == "mult")
-                    {
-                        calculation *= item.Value;
-                        continue;
-                    }
-
-                    if (operand == "div")
-                    {
-                        calculation /= item.Value;
+                        case "sub":
+                            if (!subUsed)
+                            {
+                                calculation -= coringItems[i].Value;
+                                subUsed = true;
+                            }
+                            break;
+                        case "mult":
+                            if (!multUsed)
+                            {
+                                calculation *= coringItems[i].Value;
+                                multUsed = true;
+                            }
+                            break;
+                        case "div":
+                            if (!divUsed)
+                            {
+                                calculation /= coringItems[i].Value;
+                                divUsed = true;
+                            }
+                            break;
                     }
                 }
-            }
 
-            var calcIsWholeNumber = int.TryParse(calculation.ToString(), out int x);
-            
-            if (calcIsWholeNumber)
-            {
+                var resultIsNotWhole = !int.TryParse(calculation.ToString(), out int x);
+
+                if (resultIsNotWhole) continue;
+                
                 if (lowestCoreValue == 0 || lowestCoreValue > Convert.ToInt32(calculation))
                 {
                     lowestCoreValue = Convert.ToInt32(calculation);
                 }
             }
-            
         }
 
         return lowestCoreValue;
