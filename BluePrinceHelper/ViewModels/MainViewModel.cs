@@ -27,75 +27,74 @@ public class MainViewModel : ViewModelBase
         return coreResult;
     }
 
-    private static int CalculateCoreFromList(List<CoringItem> coringItems)
+    public int CalculateCoreFromList(List<CoringItem> coringItems)
     {
-        float calculation = 0;
         var lowestCoreValue = 0;
         
         var operandSetList = new List<(string, string, string)>
         {
-            new ValueTuple<string, string, string>("sub", "mult", "div"),
-            new ValueTuple<string, string, string>("sub", "div", "mult"),
+            new ValueTuple<string, string, string>("div", "sub", "mult"),
+            new ValueTuple<string, string, string>("div", "mult", "sub"),
             new ValueTuple<string, string, string>("mult", "sub", "div"),
             new ValueTuple<string, string, string>("mult", "div", "sub"),
-            new ValueTuple<string, string, string>("div", "sub", "mult"),
-            new ValueTuple<string, string, string>("div", "mult", "sub")
+            new ValueTuple<string, string, string>("sub", "div", "mult"),
+            new ValueTuple<string, string, string>("sub", "mult", "div")
         };
-        
-        calculation += coringItems[0].Value;
         
         foreach (var operandSet in operandSetList)
         {
+            var lowestItemIndexUsed = 0;
+            float calculation = coringItems[0].Value;
+            
             var subUsed = false;
             var divUsed = false;
             var multUsed = false;
-            /*
-            for each set of operands
-            */
             
-            for (var i = 1; i < coringItems.Count; i++)
+            var operands = new[] { operandSet.Item1, operandSet.Item2, operandSet.Item3 };
+
+            foreach (var operand in operands)
             {
-                var operands = new[] { operandSet.Item1, operandSet.Item2, operandSet.Item3 };
-
-                foreach (var operand in operands)
+                for (var i = 1; i <= coringItems.Count; i++)
                 {
-                    switch (operand)
-                    {
-                        case "sub":
-                            if (!subUsed)
-                            {
-                                calculation -= coringItems[i].Value;
-                                subUsed = true;
-                            }
+                        switch (operand)
+                        {
+                            case "sub":
+                                if (!subUsed && i > lowestItemIndexUsed)
+                                {
+                                    calculation -= coringItems[i].Value;
+                                    lowestItemIndexUsed++;
+                                    subUsed = true;
+                                }
 
-                            break;
-                        case "mult":
-                            if (!multUsed)
-                            {
-                                calculation *= coringItems[i].Value;
-                                multUsed = true;
-                            }
+                                break;
+                            case "mult":
+                                if (!multUsed && i > lowestItemIndexUsed)
+                                {
+                                    calculation *= coringItems[i].Value;
+                                    lowestItemIndexUsed++;
+                                    multUsed = true;
+                                }
 
-                            break;
-                        case "div":
-                            if (!divUsed)
-                            {
-                                calculation /= coringItems[i].Value;
-                                divUsed = true;
-                            }
+                                break;
+                            case "div":
+                                if (!divUsed && i > lowestItemIndexUsed)
+                                {
+                                    calculation /= coringItems[i].Value;
+                                    lowestItemIndexUsed++;
+                                    divUsed = true;
+                                }
 
-                            break;
-                    }
+                                break;
+                        }
                 }
+            }
+            var resultIsNotWhole = !int.TryParse(calculation.ToString(), out int x);
 
-                var resultIsNotWhole = !int.TryParse(calculation.ToString(), out int x);
+            if (resultIsNotWhole) continue;
 
-                if (resultIsNotWhole) continue;
-
-                if (lowestCoreValue == 0 || lowestCoreValue > Convert.ToInt32(calculation))
-                {
-                    lowestCoreValue = Convert.ToInt32(calculation);
-                }
+            if ((lowestCoreValue == 0 || lowestCoreValue > Convert.ToInt32(calculation)) && calculation > 0)
+            {
+                lowestCoreValue = Convert.ToInt32(calculation);
             }
         }
 
