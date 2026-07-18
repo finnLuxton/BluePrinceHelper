@@ -33,7 +33,6 @@ public class MainViewModelTests
         Assert.Equal(expectedOutput, result);
     }
     
-    
     [Theory]
     [InlineData("0")]
     [InlineData("-5")]
@@ -46,6 +45,27 @@ public class MainViewModelTests
 
         //Assert
         Assert.Equal(0, result);
+    }
+
+    [Theory]
+    [InlineData("3614")]
+    public void WithValidInput_WhenGettingDelimitedCoringItemList_ReturnList(string input)
+    {
+        //Arrange todo This whole test is ass, I just want something to breakpoint with honestly and I'm lazy
+        var coringItemList = new List<CoringItem>(){
+            new(3), new(6), new(1), new(4)
+        };
+
+        var expectedOutput = new List<List<CoringItem>>()
+        {
+            coringItemList
+        };
+        
+        //Act
+        var result = _mainViewModel.GetDelimitedCoringItemList(input);
+
+        //Assert
+        Assert.Equal(result, expectedOutput);
     }
     
 }

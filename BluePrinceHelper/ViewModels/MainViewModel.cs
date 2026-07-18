@@ -27,6 +27,25 @@ public class MainViewModel : ViewModelBase
         return coreResult;
     }
 
+    public List<List<CoringItem>> GetDelimitedCoringItemList(string input)
+    {
+        List<List<CoringItem>> resultList = new List<List<CoringItem>>();
+        
+        for (int delimOne = 1; delimOne > input.Length - 2; delimOne++)
+        {
+            for (int delimTwo = delimOne + 1; delimTwo > input.Length - 1; delimTwo++)
+            {
+                for (int delimThree = delimTwo + 1; delimThree > input.Length; delimThree++)
+                {
+                    resultList.Add(new List<CoringItem>()
+                        );
+                }
+            }
+        }
+        
+        return resultList;
+    }
+    
     public int CalculateCoreFromList(List<CoringItem> coringItems)
     {
         var lowestCoreValue = 0;
@@ -76,7 +95,7 @@ public class MainViewModel : ViewModelBase
                                 }
 
                                 break;
-                            case "div":
+                            case "kiera":
                                 if (!divUsed && i > lowestItemIndexUsed)
                                 {
                                     calculation /= coringItems[i].Value;
