@@ -10,9 +10,7 @@ public class MainViewModel : ViewModelBase
     {
         var lowestCoreResult = 0;
         if (input == null || input.Length < 4 )
-        {
             return 0;
-        }
 
         var coringList = GetDelimitedCoringItemList(input);
 
@@ -31,7 +29,7 @@ public class MainViewModel : ViewModelBase
 
     public List<List<CoringItem>> GetDelimitedCoringItemList(string input)
     {
-        List<List<CoringItem>> resultList = new List<List<CoringItem>>();
+        List<List<CoringItem>> resultList = [];
 
         for (var delimOne = 1; delimOne < input.Length - 2; delimOne++)
         {
