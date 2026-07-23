@@ -6,6 +6,20 @@ namespace BluePrinceHelper.UnitTests.ViewModels;
 public class MainViewModelTests
 {
     private readonly MainViewModel _mainViewModel = new();
+
+    [Theory]
+    [InlineData("3614", 14)]
+    [InlineData("86455", 18)]
+    [InlineData("45292", 8)]
+    public void WithValidInput_WhenGettingCore_ReturnCore(string input, int expectedOutput)
+    {
+        //Arrange and Act
+        var result = _mainViewModel.GetCore(input);
+        
+        //Assert
+        Assert.Equal(result, expectedOutput);
+        
+    }
     
     [Theory]
     [InlineData(3, 6, 1, 4, 14)]

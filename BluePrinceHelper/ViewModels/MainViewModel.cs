@@ -8,23 +8,25 @@ public class MainViewModel : ViewModelBase
 {
     public int GetCore(string? input)
     {
+        var lowestCoreResult = 0;
         if (input == null || input.Length < 4 )
         {
             return 0;
         }
-        
-        // todo deal with separation, we need to fix how we assign the input. 
-        var coringList = new List<CoringItem>
-        { 
-            new(Convert.ToInt32(input[0].ToString())),
-            new(Convert.ToInt32(input[1].ToString())),
-            new(Convert.ToInt32(input[2].ToString())),
-            new(Convert.ToInt32(input[3].ToString()))
-        };
 
-        var coreResult = CalculateCoreFromList(coringList);
+        var coringList = GetDelimitedCoringItemList(input);
 
-        return coreResult;
+        foreach (var coringSet in coringList)
+        {
+            var coreFromSet = CalculateCoreFromList(coringSet);
+
+            if ((coreFromSet < lowestCoreResult && coreFromSet > 0) || lowestCoreResult == 0) 
+            {
+                lowestCoreResult = coreFromSet;
+            }
+        }
+
+        return lowestCoreResult;
     }
 
     public List<List<CoringItem>> GetDelimitedCoringItemList(string input)
@@ -88,7 +90,6 @@ public class MainViewModel : ViewModelBase
                                     lowestItemIndexUsed++;
                                     subUsed = true;
                                 }
-
                                 break;
                             case "mult":
                                 if (!multUsed && i > lowestItemIndexUsed)
@@ -97,7 +98,6 @@ public class MainViewModel : ViewModelBase
                                     lowestItemIndexUsed++;
                                     multUsed = true;
                                 }
-
                                 break;
                             case "div":
                                 if (!divUsed && i > lowestItemIndexUsed)
@@ -106,7 +106,6 @@ public class MainViewModel : ViewModelBase
                                     lowestItemIndexUsed++;
                                     divUsed = true;
                                 }
-
                                 break;
                         }
                 }
