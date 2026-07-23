@@ -11,4 +11,13 @@
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Resource\img\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Resource\img\mtHollyBackground.png" />
+      <Resource Include="Resource\img\mtHollyBackground.png" />
+    </ItemGroup>
+
 </Project>
