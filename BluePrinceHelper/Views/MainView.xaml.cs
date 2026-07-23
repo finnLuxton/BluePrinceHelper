@@ -36,6 +36,8 @@ public partial class MainView
     private void OnClickGetCore(object sender, RoutedEventArgs e)
     {
         var mainViewModel = new MainViewModel();
+
+        OutputCoreValue.Text = "0";
         
         if (InputCoreValue.Text.Length < 4)
         {

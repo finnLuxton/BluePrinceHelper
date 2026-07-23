@@ -99,7 +99,7 @@ public class MainViewModel : ViewModelBase
                                 }
 
                                 break;
-                            case "kiera":
+                            case "div":
                                 if (!divUsed && i > lowestItemIndexUsed)
                                 {
                                     calculation /= coringItems[i].Value;

@@ -3,9 +3,6 @@ using BluePrinceHelper.ViewModels;
 
 namespace BluePrinceHelper.UnitTests.ViewModels;
 
-// Tests follow a naming structure following AAA
-// Arrange, Act, Assert
-
 public class MainViewModelTests
 {
     private readonly MainViewModel _mainViewModel = new();
@@ -48,24 +45,61 @@ public class MainViewModelTests
     }
 
     [Theory]
-    [InlineData("3614")]
-    public void WithValidInput_WhenGettingDelimitedCoringItemList_ReturnList(string input)
+    [MemberData(nameof(TestData))]
+    public void WithValidInput_WhenGettingDelimitedCoringItemList_ReturnList(string input, List<List<CoringItem>> expectedOutput)
     {
-        //Arrange todo This whole test is ass, I just want something to breakpoint with honestly and I'm lazy
-        var coringItemList = new List<CoringItem>(){
-            new(3), new(6), new(1), new(4)
-        };
-
-        var expectedOutput = new List<List<CoringItem>>()
-        {
-            coringItemList
-        };
-        
-        //Act
+        //Arrange and Act
         var result = _mainViewModel.GetDelimitedCoringItemList(input);
 
         //Assert
         Assert.Equal(result, expectedOutput);
     }
+    
+    
+    public static IEnumerable<object[]> TestData =>
+    [
+        [
+            "3614",
+            new List<List<CoringItem>>
+            {
+                new(){
+                    new CoringItem(3),
+                    new CoringItem(6),
+                    new CoringItem(1),
+                    new CoringItem(4)
+                }
+            }
+        ],
+        [
+            "12345",
+            new List<List<CoringItem>>
+            {
+                new(){
+                    new CoringItem(1),
+                    new CoringItem(2),
+                    new CoringItem(3),
+                    new CoringItem(45)
+                },
+                new(){
+                    new CoringItem(1),
+                    new CoringItem(2),
+                    new CoringItem(34),
+                    new CoringItem(5)
+                },
+                new(){
+                    new CoringItem(1),
+                    new CoringItem(23),
+                    new CoringItem(4),
+                    new CoringItem(5)
+                },
+                new(){
+                    new CoringItem(12),
+                    new CoringItem(3),
+                    new CoringItem(4),
+                    new CoringItem(5)
+                }
+            }
+        ]
+    ];
     
 }
