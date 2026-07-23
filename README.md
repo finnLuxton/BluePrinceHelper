@@ -29,3 +29,8 @@ Some of these puzzles you'll encounter are beyond unique in their design.
 ### Known bugs
 
 - Int32 overflow on larger calculations
+
+--- 
+
+### Asset Sources
+Background from AlphaCoders.com https://wall.alphacoders.com/big.php?i=1395358
