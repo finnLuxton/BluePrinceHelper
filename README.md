@@ -16,10 +16,10 @@ Some of these puzzles you'll encounter are beyond unique in their design.
 --- 
 
 ### What does this app do?
+- Numeric Coring
 
 ### What do I want it to do?
 
-- Numeric Coring
 - Coring input generation from words
 
 ### Neat things to try working on
@@ -33,4 +33,11 @@ Some of these puzzles you'll encounter are beyond unique in their design.
 --- 
 
 ### Asset Sources
-Background from AlphaCoders.com https://wall.alphacoders.com/big.php?i=1395358
+- [Blue Prince Background from AlphaCoders.com](https://wall.alphacoders.com/big.php?i=1395358)
+- [Dosis Font](https://fonts.google.com/specimen/Dosis?preview.script=Latn)
+
+### Thanks
+- [Payload for their WPF Flat UI design tutorial](https://www.youtube.com/watch?v=OJygSefHVr0)
+
+### Licenses
+[SIL OPEN FONT LICENSE](https://openfontlicense.org/)

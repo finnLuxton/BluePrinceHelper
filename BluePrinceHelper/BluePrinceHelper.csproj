@@ -12,12 +12,15 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Resource\fonts\" />
       <Folder Include="Resource\img\" />
     </ItemGroup>
 
     <ItemGroup>
       <None Remove="Resource\img\mtHollyBackground.png" />
       <Resource Include="Resource\img\mtHollyBackground.png" />
+      <None Remove="Resource\fonts\Dosis-Medium.ttf" />
+      <Resource Include="Resource\fonts\Dosis-Medium.ttf" />
     </ItemGroup>
 
 </Project>

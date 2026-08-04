@@ -8,27 +8,64 @@
         Height="393"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
+        WindowStyle="None"
         ResizeMode="NoResize">
     <Window.Background>
         <ImageBrush ImageSource="/Resource/img/mtHollyBackground.png"></ImageBrush>
     </Window.Background>
     <Grid>
-        <Grid HorizontalAlignment="Center"
-              Margin="25">
-            <TextBox Name="InputCoreValue"
-                     PreviewTextInput="NumberValidationTextBox"
-                     MinWidth="200" MinHeight="20" MaxWidth="200" MaxHeight="20"
-                     VerticalAlignment="Top"/>
-            <Button Content="Get Numeric Core"
-                    Click="OnClickGetCore"
-                    ClickMode="Press"
-                    IsDefault="True"
-                    VerticalAlignment="Center"/>
-            <TextBox Name="OutputCoreValue"
-                     PreviewTextInput="NumberValidationTextBox"
-                     IsHitTestVisible="False"
-                     MinWidth="200" MinHeight="20" MaxWidth="200" MaxHeight="20"
-                     VerticalAlignment="Bottom"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition>
+            </ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <!-- Toolbar --> 
+        <Grid Background="Navy"
+              Grid.ColumnSpan="2">
+        
+            <Grid.ColumnDefinitions>
+                 <ColumnDefinition/>
+                 <ColumnDefinition/>
+                 <ColumnDefinition/>
+                 <ColumnDefinition/>
+                 <ColumnDefinition/>
+                 <ColumnDefinition/>
+                 <ColumnDefinition/>
+                 <ColumnDefinition/>
+                 <ColumnDefinition/>
+                 <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Text="Blue Prince Helper"
+                       Grid.ColumnSpan="3"
+                       Foreground="White"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontFamily="/Resource/fonts/#Dosis Medium.ttf"
+                       FontWeight="Medium"
+                       />
+            
         </Grid>
+        
+        <TextBox Name="InputCoreValue"
+                 PreviewTextInput="NumberValidationTextBox"
+                 MinWidth="200" MinHeight="20" MaxWidth="200" MaxHeight="20"
+                 VerticalAlignment="Top"/>
+        <Button Content="Get Numeric Core"
+                Click="OnClickGetCore"
+                ClickMode="Press"
+                IsDefault="True"
+                VerticalAlignment="Center"/>
+        <TextBox Name="OutputCoreValue"
+                 PreviewTextInput="NumberValidationTextBox"
+                 IsHitTestVisible="False"
+                 MinWidth="200" MinHeight="20" MaxWidth="200" MaxHeight="20"
+                 VerticalAlignment="Bottom"/>
+
     </Grid>
 </Window>
