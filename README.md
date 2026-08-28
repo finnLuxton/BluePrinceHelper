@@ -29,6 +29,7 @@ Some of these puzzles you'll encounter are beyond unique in their design.
 ### Known bugs
 
 - Int32 overflow on larger calculations
+- Fonts
 
 --- 
 

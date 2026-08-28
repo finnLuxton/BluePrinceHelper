@@ -41,31 +41,99 @@
                  <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             
-            <TextBlock Text="Blue Prince Helper"
-                       Grid.ColumnSpan="3"
+            <TextBlock Text="Blue Prince"
+                       Grid.Column="1"
                        Foreground="White"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        FontFamily="/Resource/fonts/#Dosis Medium.ttf"
-                       FontWeight="Medium"
                        />
+            
+            <TextBlock Text="Coring"
+                       Grid.Column="2"
+                       Foreground="LightGray"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontFamily="/Resource/fonts/#Dosis Medium.ttf"
+            />
+            
+            <TextBlock Text="Darts"
+                       Grid.Column="3"
+                       Foreground="LightGray"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontFamily="/Resource/fonts/#Dosis Medium.ttf"
+            />
             
         </Grid>
         
-        <TextBox Name="InputCoreValue"
-                 PreviewTextInput="NumberValidationTextBox"
-                 MinWidth="200" MinHeight="20" MaxWidth="200" MaxHeight="20"
-                 VerticalAlignment="Top"/>
-        <Button Content="Get Numeric Core"
-                Click="OnClickGetCore"
-                ClickMode="Press"
-                IsDefault="True"
-                VerticalAlignment="Center"/>
-        <TextBox Name="OutputCoreValue"
-                 PreviewTextInput="NumberValidationTextBox"
-                 IsHitTestVisible="False"
-                 MinWidth="200" MinHeight="20" MaxWidth="200" MaxHeight="20"
-                 VerticalAlignment="Bottom"/>
+        <StackPanel Grid.Row = "1" Grid.Column="0">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="50"
+                           Height="50"/> <!-- Todo, add in a sourced icon here --> 
+                    <TextBlock Text="Blue Prince Helper"
+                               FontSize="20"
+                               FontWeight="Medium"
+                               Foreground="White"
+                               Background="#FF00308B"
+                               VerticalAlignment="Center"
+                               FontFamily="/Resource/fonts/#Dosis Medium.ttf"/>
+                </StackPanel>
+            
+                <TextBlock Text="About"
+                           Foreground="White"
+                           FontSize="25"
+                           FontFamily="/Resource/fonts/#Dosis Medium.ttf"/>
+            
+                <TextBlock Text="How to use"
+                           Foreground="White"
+                           FontSize="25"
+                           FontFamily="/Resource/fonts/#Dosis Medium.ttf"/>
+            
+                <TextBlock Text="Lorum ipsum dolor lorum ipsum dolor ipsum dolor lorum ipsum dolor ipsum dolor lorum ipsum dolor"
+                           Foreground="White"
+                           FontSize="12"
+                           FontFamily="/Resource/fonts/#Dosis Medium.ttf"
+                           TextWrapping="Wrap"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal">
+                <Button Click="OnClickGetCore"
+                        ClickMode="Press"
+                        IsDefault="True"
+                        Content="Get Numeric Core"
+                        Foreground="White"
+                        FontSize="14"
+                        FontWeight="Medium">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                            <Setter Property="Background" Value="#88BA008B"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Aquamarine"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </StackPanel>
+            
+        </StackPanel>
+        
+        <!-- <TextBox Name="InputCoreValue" -->
+        <!--          PreviewTextInput="NumberValidationTextBox" -->
+        <!--          MinWidth="200" MinHeight="20" MaxWidth="200" MaxHeight="20" -->
+        <!--          VerticalAlignment="Top"/> -->
+
+        <!-- <TextBox Name="OutputCoreValue" -->
+        <!--          PreviewTextInput="NumberValidationTextBox" -->
+        <!--          IsHitTestVisible="False" -->
+        <!--          MinWidth="200" MinHeight="20" MaxWidth="200" MaxHeight="20" -->
+        <!--          VerticalAlignment="Bottom"/> -->
 
     </Grid>
 </Window>

@@ -21,6 +21,18 @@
       <Resource Include="Resource\img\mtHollyBackground.png" />
       <None Remove="Resource\fonts\Dosis-Medium.ttf" />
       <Resource Include="Resource\fonts\Dosis-Medium.ttf" />
+      <None Remove="Resource\fonts\Dosis-SemiBold.ttf" />
+      <Resource Include="Resource\fonts\Dosis-SemiBold.ttf" />
+      <None Remove="Resource\fonts\Dosis-Regular.ttf" />
+      <Resource Include="Resource\fonts\Dosis-Regular.ttf" />
+      <None Remove="Resource\fonts\Dosis-Light.ttf" />
+      <Resource Include="Resource\fonts\Dosis-Light.ttf" />
+      <None Remove="Resource\fonts\Dosis-Bold.ttf" />
+      <Resource Include="Resource\fonts\Dosis-Bold.ttf" />
+      <None Remove="Resource\fonts\Dosis-ExtraBold.ttf" />
+      <Resource Include="Resource\fonts\Dosis-ExtraBold.ttf" />
+      <None Remove="Resource\fonts\Dosis-ExtraLight.ttf" />
+      <Resource Include="Resource\fonts\Dosis-ExtraLight.ttf" />
     </ItemGroup>
 
 </Project>
