@@ -109,31 +109,42 @@
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
-                            <Setter Property="Background" Value="#88BA008B"/>
+                            <Setter Property="Background" Value="DarkCyan"/>
                             <Setter Property="Cursor" Value="Hand"/>
-                            
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="Aquamarine"/>
+                                    <Setter Property="Background" Value ="Cyan"/>
                                 </Trigger>
                             </Style.Triggers>
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Border Width="100" Height="25"
+                                            CornerRadius="12"
+                                            Background="{TemplateBinding Background}">
+                                        
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
                         </Style>
+                        
+                        
                     </Button.Style>
                 </Button>
             </StackPanel>
             
+
         </StackPanel>
-        
-        <!-- <TextBox Name="InputCoreValue" -->
-        <!--          PreviewTextInput="NumberValidationTextBox" -->
-        <!--          MinWidth="200" MinHeight="20" MaxWidth="200" MaxHeight="20" -->
-        <!--          VerticalAlignment="Top"/> -->
+        <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+            <TextBox Name="InputCoreValue"
+                     PreviewTextInput="NumberValidationTextBox"
+                     MinWidth="200" MinHeight="20" MaxWidth="200" MaxHeight="20"
+                     VerticalAlignment="Top"/>
 
-        <!-- <TextBox Name="OutputCoreValue" -->
-        <!--          PreviewTextInput="NumberValidationTextBox" -->
-        <!--          IsHitTestVisible="False" -->
-        <!--          MinWidth="200" MinHeight="20" MaxWidth="200" MaxHeight="20" -->
-        <!--          VerticalAlignment="Bottom"/> -->
-
+            <TextBox Name="OutputCoreValue"
+                     PreviewTextInput="NumberValidationTextBox"
+                     IsHitTestVisible="False"
+                     MinWidth="200" MinHeight="20" MaxWidth="200" MaxHeight="20"
+                     VerticalAlignment="Bottom"/>
+        </StackPanel>
     </Grid>
 </Window>
