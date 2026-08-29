@@ -53,5 +53,18 @@ public partial class MainView
         Regex regex = new Regex("[^0-9]+");
         e.Handled = regex.IsMatch(e.Text);
     }
+
+    private void Toolbar_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+        if (e.LeftButton == MouseButtonState.Pressed)
+        {
+            DragMove();
+        }
+    }
+
+    private void CloseWindow(object sender, RoutedEventArgs e)
+    {
+        Close();
+    }
     
 }
