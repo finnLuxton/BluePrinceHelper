@@ -17,18 +17,20 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition>
-            </ColumnDefinition>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         
         <!-- Toolbar --> 
         <Grid Background="Navy"
-              Grid.ColumnSpan="2"
+              Grid.ColumnSpan="3"
               MouseDown="Toolbar_MouseDown">
-        
             <Grid.ColumnDefinitions>
                  <ColumnDefinition/>
                  <ColumnDefinition/>
@@ -42,11 +44,13 @@
                  <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             
-            <TextBlock Text="Blue Prince"
-                       Grid.Column="1"
+            <TextBlock Text="Blue Prince Helper"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
                        Foreground="White"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
+                       FontSize="14"
                        FontFamily="/Resource/fonts/#Dosis Medium.ttf"
                        />
             
@@ -74,6 +78,7 @@
                     Foreground="White"
                     FontSize="10"
                     FontWeight="Medium"
+                    VerticalAlignment="Center"
                     Margin="0,0,10,0">
                 <Button.Style>
                     <Style TargetType="Button">
@@ -102,33 +107,36 @@
             
         </Grid>
         
-        <!-- Left Menu -->
-        <StackPanel Grid.Row = "1" Grid.Column="0" VerticalAlignment="Center" Margin="15, -60, 15, 15">
+        <!-- Centre Menu -->
+        <StackPanel Grid.Row = "2" Grid.ColumnSpan="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="15, -55, 15, 15">
             <StackPanel>
-                <StackPanel Orientation="Horizontal" Width="500">
-                    <Image Width="50"
-                           Height="50"/> <!-- Todo, add in a sourced icon here --> 
-                    <TextBlock Text="Blue Prince Helper"
-                               FontSize="20"
-                               FontWeight="Medium"
-                               Foreground="White"
-                               VerticalAlignment="Center"
-                               FontFamily="/Resource/fonts/#Dosis Medium.ttf"/>
-                </StackPanel>
+                <!-- <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Width="500"> -->
+                <!--     <TextBlock Text="Blue Prince Helper" -->
+                <!--                FontSize="20" -->
+                <!--                FontWeight="Medium" -->
+                <!--                Foreground="White" -->
+                <!--                VerticalAlignment="Top" -->
+                <!--                HorizontalAlignment="Center" -->
+                <!--                FontFamily="/Resource/fonts/#Dosis Medium.ttf"/> -->
+                <!-- </StackPanel> -->
                 
                 <TextBlock Text="Numeric Coring"
                            Foreground="White"
-                           FontSize="20"
+                           FontSize="26"
+                           FontWeight="Bold"
                            FontFamily="/Resource/fonts/#Dosis Medium.ttf"/>
-            
-                <TextBlock Text="Input any whole number more than 4 digits"
-                           Foreground="White"
-                           FontSize="12"
-                           FontFamily="/Resource/fonts/#Dosis Medium.ttf"
-                           TextWrapping="Wrap"/>
             </StackPanel>
+        </StackPanel>
+        
+        <!-- Right Menu Input Boxes -->
+        <StackPanel Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" VerticalAlignment="Center">
+            <TextBox Name="InputCoreValue"
+                     PreviewTextInput="NumberValidationTextBox"
+                     MinWidth="100" MinHeight="20" MaxWidth="100" MaxHeight="20"
+                     Margin="0,5,0,10"
+                     VerticalAlignment="Top"
+                     HorizontalAlignment="Center"/>
             
-            <StackPanel Orientation="Horizontal" Margin="5">
                 <Button Click="OnClickGetCore"
                         ClickMode="Press"
                         IsDefault="True"
@@ -136,7 +144,8 @@
                         Foreground="White"
                         FontSize="14"
                         FontWeight="Medium"
-                        Margin="10,0,0,0">
+                        Margin="0,0,0,0"
+                        HorizontalAlignment="Center">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
@@ -162,25 +171,14 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                
-                
-            </StackPanel>
             
-
-        </StackPanel>
-        
-        <!-- Right Menu Input Boxes -->
-        <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
-            <TextBox Name="InputCoreValue"
-                     PreviewTextInput="NumberValidationTextBox"
-                     MinWidth="200" MinHeight="20" MaxWidth="200" MaxHeight="20"
-                     VerticalAlignment="Top"/>
-
             <TextBox Name="OutputCoreValue"
                      PreviewTextInput="NumberValidationTextBox"
                      IsHitTestVisible="False"
-                     MinWidth="200" MinHeight="20" MaxWidth="200" MaxHeight="20"
-                     VerticalAlignment="Bottom"/>
+                     MinWidth="100" MinHeight="20" MaxWidth="100" MaxHeight="20"
+                     Margin="0,40,0,5"
+                     VerticalAlignment="Bottom"
+                     HorizontalAlignment="Center"/>
         </StackPanel>
     </Grid>
 </Window>
