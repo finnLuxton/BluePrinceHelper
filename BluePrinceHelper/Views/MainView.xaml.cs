@@ -44,6 +44,7 @@ public partial class MainView
         var inputHasNonNumeric = InputCoreValue.Text.Any(char.IsLetter);;
         var nonNumericCore = "";
         OutputCoreValue.Text = "0";
+        OutputCoreWorking.Text = "";
         
         if ((InputCoreValue.Text.Length < 4 && isInputNumericOnly) ||
             (inputHasNumeric && inputHasNonNumeric))
@@ -56,8 +57,9 @@ public partial class MainView
             nonNumericCore = mainViewModel.GetIntCoringInputFromNonNumericInput(InputCoreValue.Text);
         }
         
-        var result = mainViewModel.GetCore(string.IsNullOrEmpty(nonNumericCore) ? InputCoreValue.Text : nonNumericCore);
+        var (result, working) = mainViewModel.GetCore(string.IsNullOrEmpty(nonNumericCore) ? InputCoreValue.Text : nonNumericCore);
         OutputCoreValue.Text = result.ToString();
+        OutputCoreWorking.Text = working;
     }
 
     private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)

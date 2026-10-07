@@ -1,35 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using BluePrinceHelper.Models;
 
 namespace BluePrinceHelper.ViewModels;
 
 public class MainViewModel : ViewModelBase
 {
-    public int GetCore(string? input)
+    public (int lowestCoreResult, string lowestCoreWorking) GetCore(string? input)
     {
         var lowestCoreResult = 0;
-        if (input == null || input.Length < 4 )
-            return 0;
+        var lowestCoreWorking = "";
+        if (input == null || input.Length < 4)
+            return (0, "");
 
         var coringList = GetDelimitedCoringItemList(input);
 
         foreach (var coringSet in coringList)
         {
-            var coreFromSet = CalculateCoreFromList(coringSet);
+            var (coreFromSet, workingFromSet) = CalculateCoreFromList(coringSet);
 
             if ((coreFromSet < lowestCoreResult && coreFromSet > 0) || lowestCoreResult == 0) 
             {
                 lowestCoreResult = coreFromSet;
+                lowestCoreWorking = workingFromSet;
             }
         }
 
-        return lowestCoreResult;
+        return (lowestCoreResult, lowestCoreWorking);
     }
 
-    public List<List<CoringItem>> GetDelimitedCoringItemList(string input)
+    public List<List<int>> GetDelimitedCoringItemList(string input)
     {
-        List<List<CoringItem>> resultList = [];
+        List<List<int>> resultList = [];
 
         for (var delimOne = 1; delimOne < input.Length - 2; delimOne++)
         {
@@ -38,10 +39,10 @@ public class MainViewModel : ViewModelBase
                 for (var delimThree = delimTwo + 1; delimThree < input.Length; delimThree++)
                 {
                     resultList.Add([
-                        new CoringItem(Convert.ToInt32(input[..delimOne])),
-                        new CoringItem(Convert.ToInt32(input[delimOne..delimTwo])),
-                        new CoringItem(Convert.ToInt32(input[delimTwo..delimThree])),
-                        new CoringItem(Convert.ToInt32(input[delimThree..]))
+                        Convert.ToInt32(input[..delimOne]),
+                        Convert.ToInt32(input[delimOne..delimTwo]),
+                        Convert.ToInt32(input[delimTwo..delimThree]),
+                        Convert.ToInt32(input[delimThree..])
                     ]);
                 }
             }
@@ -61,16 +62,17 @@ public class MainViewModel : ViewModelBase
             {
                 throw new ArgumentOutOfRangeException("c", "This method only accepts standard Latin characters.");
             }
-            result += (upper - 'A' + 1).ToString();
+            result += upper - 'A' + 1;
         }
         
         return result;
     }
     
-    public int CalculateCoreFromList(List<CoringItem> coringItems)
+    public (int lowestCoreValue, string lowestCoreWorking) CalculateCoreFromList(List<int> coringItems)
     {
         var lowestCoreValue = 0;
-        
+        var lowestCoreWorking = "";
+
         var operandSetList = new List<(string, string, string)>
         {
             new ValueTuple<string, string, string>("div", "sub", "mult"),
@@ -84,7 +86,10 @@ public class MainViewModel : ViewModelBase
         foreach (var operandSet in operandSetList)
         {
             var lowestItemIndexUsed = 0;
-            float calculation = coringItems[0].Value;
+            var working = "";
+            
+            float calculation = coringItems[0];
+            working += $"{coringItems[0]} ";
             
             var subUsed = false;
             var divUsed = false;
@@ -101,7 +106,8 @@ public class MainViewModel : ViewModelBase
                             case "sub":
                                 if (!subUsed && i > lowestItemIndexUsed)
                                 {
-                                    calculation -= coringItems[i].Value;
+                                    calculation -= coringItems[i];
+                                    working += $"- {coringItems[i]} ";
                                     lowestItemIndexUsed++;
                                     subUsed = true;
                                 }
@@ -109,7 +115,8 @@ public class MainViewModel : ViewModelBase
                             case "mult":
                                 if (!multUsed && i > lowestItemIndexUsed)
                                 {
-                                    calculation *= coringItems[i].Value;
+                                    calculation *= coringItems[i];
+                                    working += $"* {coringItems[i]} ";
                                     lowestItemIndexUsed++;
                                     multUsed = true;
                                 }
@@ -117,7 +124,8 @@ public class MainViewModel : ViewModelBase
                             case "div":
                                 if (!divUsed && i > lowestItemIndexUsed)
                                 {
-                                    calculation /= coringItems[i].Value;
+                                    calculation /= coringItems[i];
+                                    working += $"/ {coringItems[i]} ";
                                     lowestItemIndexUsed++;
                                     divUsed = true;
                                 }
@@ -132,10 +140,11 @@ public class MainViewModel : ViewModelBase
             if ((lowestCoreValue == 0 || lowestCoreValue > Convert.ToInt32(calculation)) && calculation > 0)
             {
                 lowestCoreValue = Convert.ToInt32(calculation);
+                lowestCoreWorking = working;
             }
         }
 
-        return lowestCoreValue;
+        return (lowestCoreValue, lowestCoreWorking);
     }
     
 }

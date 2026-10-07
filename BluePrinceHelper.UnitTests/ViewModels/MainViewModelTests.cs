@@ -1,4 +1,3 @@
-using BluePrinceHelper.Models;
 using BluePrinceHelper.ViewModels;
 
 namespace BluePrinceHelper.UnitTests.ViewModels;
@@ -17,7 +16,7 @@ public class MainViewModelTests
         var result = _mainViewModel.GetCore(input);
         
         //Assert
-        Assert.Equal(result, expectedOutput);
+        Assert.Equal(expectedOutput, result.lowestCoreResult);
         
     }
     
@@ -29,19 +28,19 @@ public class MainViewModelTests
     public void WithValidInput_WhenCalculatingCoreFromList_GetNumericCoreResult(int coreItemOne, int coreItemTwo, int coreItemThree, int coreItemFour,  int expectedOutput)
     {
         //Arrange
-        var coringList = new List<CoringItem>
+        var coringList = new List<int>
         { 
-            new(coreItemOne),
-            new(coreItemTwo),
-            new(coreItemThree),
-            new(coreItemFour)
+            coreItemOne,
+            coreItemTwo,
+            coreItemThree,
+            coreItemFour
         };
         
         //Act
         var result = _mainViewModel.CalculateCoreFromList(coringList);
 
         //Assert
-        Assert.Equal(expectedOutput, result);
+        Assert.Equal(expectedOutput, result.lowestCoreValue);
     }
     
     [Theory]
@@ -55,18 +54,18 @@ public class MainViewModelTests
         var result = _mainViewModel.GetCore(invalidCoringTargetInput);
 
         //Assert
-        Assert.Equal(0, result);
+        Assert.Equal(0, result.lowestCoreResult);
     }
 
     [Theory]
     [MemberData(nameof(TestData))]
-    public void WithValidInput_WhenGettingDelimitedCoringItemList_ReturnList(string input, List<List<CoringItem>> expectedOutput)
+    public void WithValidInput_WhenGettingDelimitedCoringItemList_ReturnList(string input, List<List<int>> expectedOutput)
     {
         //Arrange and Act
         var result = _mainViewModel.GetDelimitedCoringItemList(input);
 
         //Assert
-        Assert.Equal(result, expectedOutput);
+        Assert.Equal(expectedOutput, result);
     }
     
     
@@ -74,43 +73,43 @@ public class MainViewModelTests
     [
         [
             "3614",
-            new List<List<CoringItem>>
+            new List<List<int>>
             {
                 new(){
-                    new CoringItem(3),
-                    new CoringItem(6),
-                    new CoringItem(1),
-                    new CoringItem(4)
+                    3,
+                    6,
+                    1,
+                    4
                 }
             }
         ],
         [
             "12345",
-            new List<List<CoringItem>>
+            new List<List<int>>
             {
                 new(){
-                    new CoringItem(1),
-                    new CoringItem(2),
-                    new CoringItem(3),
-                    new CoringItem(45)
+                    1,
+                    2,
+                    3,
+                    45
                 },
                 new(){
-                    new CoringItem(1),
-                    new CoringItem(2),
-                    new CoringItem(34),
-                    new CoringItem(5)
+                    1,
+                    2,
+                    34,
+                    5
                 },
                 new(){
-                    new CoringItem(1),
-                    new CoringItem(23),
-                    new CoringItem(4),
-                    new CoringItem(5)
+                    1,
+                    23,
+                    4,
+                    5
                 },
                 new(){
-                    new CoringItem(12),
-                    new CoringItem(3),
-                    new CoringItem(4),
-                    new CoringItem(5)
+                    12,
+                    3,
+                    4,
+                    5
                 }
             }
         ]
