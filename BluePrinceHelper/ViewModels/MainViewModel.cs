@@ -49,6 +49,23 @@ public class MainViewModel : ViewModelBase
         
         return resultList;
     }
+
+    public string GetIntCoringInputFromNonNumericInput(string input)
+    {
+        var result = "";
+        
+        foreach (char c in input)
+        {
+            char upper = char.ToUpper(c);
+            if (upper < 'A' || upper > 'Z')
+            {
+                throw new ArgumentOutOfRangeException("c", "This method only accepts standard Latin characters.");
+            }
+            result += (upper - 'A' + 1).ToString();
+        }
+        
+        return result;
+    }
     
     public int CalculateCoreFromList(List<CoringItem> coringItems)
     {

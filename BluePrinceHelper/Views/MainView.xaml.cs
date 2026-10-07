@@ -19,6 +19,8 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
+
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
@@ -36,21 +38,31 @@ public partial class MainView
     private void OnClickGetCore(object sender, RoutedEventArgs e)
     {
         var mainViewModel = new MainViewModel();
-
+        var isInputNonNumericOnly = InputCoreValue.Text.All(c => !char.IsDigit(c)); 
+        var isInputNumericOnly = InputCoreValue.Text.All(char.IsDigit);
+        var inputHasNumeric = InputCoreValue.Text.Any(char.IsDigit);
+        var inputHasNonNumeric = InputCoreValue.Text.Any(char.IsLetter);;
+        var nonNumericCore = "";
         OutputCoreValue.Text = "0";
         
-        if (InputCoreValue.Text.Length < 4)
+        if ((InputCoreValue.Text.Length < 4 && isInputNumericOnly) ||
+            (inputHasNumeric && inputHasNonNumeric))
         {
             return; 
         }
+
+        if (isInputNonNumericOnly)
+        {
+            nonNumericCore = mainViewModel.GetIntCoringInputFromNonNumericInput(InputCoreValue.Text);
+        }
         
-        var result = mainViewModel.GetCore(InputCoreValue.Text);
+        var result = mainViewModel.GetCore(string.IsNullOrEmpty(nonNumericCore) ? InputCoreValue.Text : nonNumericCore);
         OutputCoreValue.Text = result.ToString();
     }
 
     private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
     { 
-        Regex regex = new Regex("[^0-9]+");
+        Regex regex = new Regex("[^0-9a-zA-Z]+");
         e.Handled = regex.IsMatch(e.Text);
     }
 

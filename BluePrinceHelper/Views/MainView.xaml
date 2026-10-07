@@ -54,7 +54,7 @@
                        FontFamily="/Resource/fonts/#Dosis Medium.ttf"
                        />
             
-            <TextBlock Text="Coring"
+            <TextBlock Text="Coring (WIP)"
                        Grid.Column="2"
                        Foreground="LightGray"
                        VerticalAlignment="Center"
@@ -62,7 +62,7 @@
                        FontFamily="/Resource/fonts/#Dosis Medium.ttf"
             />
             
-            <TextBlock Text="Darts"
+            <TextBlock Text="Darts (TBD)"
                        Grid.Column="3"
                        Foreground="LightGray"
                        VerticalAlignment="Center"
